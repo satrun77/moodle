@@ -550,3 +550,64 @@ function enrol_meta_sync($courseid = NULL, $verbose = false) {
 
     return 0;
 }
+
+/**
+ * Search for potential link courses.
+ *
+ * @param string $keyword
+ * @param object $course
+ * @param int $limit
+ * @return array
+ */
+function enrol_meta_search($keyword, $course, $limit = 20) {
+    global $DB, $SITE;
+
+    // Query params.
+    $params = array(
+        'currentcourse1' => $course->id,
+        'currentcourse2' => $course->id,
+        'siteid'         => $SITE->id,
+        'enrol'          => 'meta',
+        'contextlevel'   => CONTEXT_COURSE
+    );
+
+    // Don't search by keyword if it is empty.
+    $where = '';
+    if (!empty($keyword)) {
+        // Search fields.
+        $likeidnumber = $DB->sql_like('idnumber', ':keyword1', false);
+        $likeshortname = $DB->sql_like('shortname', ':keyword2', false);
+        $likefullname = $DB->sql_like('fullname', ':keyword3', false);
+        // Search params & sql where clause.
+        $params['keyword1'] = '%' . $keyword . '%';
+        $params['keyword2'] = '%' . $keyword . '%';
+        $params['keyword3'] = '%' . $keyword . '%';
+        $where = " AND (" . $likefullname . " OR " . $likeidnumber . " OR " . $likeshortname . ")";
+    }
+    $selectcontext = ', ' . context_helper::get_preload_record_columns_sql('ctx');
+
+    $sql = "SELECT DISTINCT c.id, fullname, idnumber, shortname $selectcontext
+              FROM {course} c
+         LEFT JOIN {enrol} e ON e.customint1 = c.id AND (e.enrol = :enrol)
+         LEFT JOIN {context} ctx ON (ctx.instanceid = c.id AND ctx.contextlevel = :contextlevel)
+             WHERE (c.id <> :currentcourse1 OR c.id <> :siteid)
+               AND e.id IS NULL $where
+          ORDER BY fullname ASC";
+    $courses = $DB->get_records_sql($sql, $params, 0, $limit);
+
+    $return = array();
+    foreach ($courses as $course) {
+        context_helper::preload_from_record($course);
+        $coursecontext = context_course::instance($course->id);
+        if (!has_capability('moodle/course:viewhiddencourses', $coursecontext)) {
+            continue;
+        }
+        if (!has_capability('enrol/meta:selectaslinked', $coursecontext)) {
+            continue;
+        }
+        $return[$course->id] = $coursecontext->get_context_name(false);
+        unset($coursecontext);
+    }
+
+    return $return;
+}

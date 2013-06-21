@@ -577,6 +577,33 @@ input#id_externalurl {direction:ltr;}
     #region-main .mform:not(.unresponsive) .fitem_fcheckbox .felement {
         padding: 6px;
     }
+/**
+ * Searchable Selector - Autocomplete
+ */
+.searchableselector-selected {
+    list-style: none;
+    margin: 5px 0px 0px 0px;
+}
+
+.searchableselector-selected li {
+    margin-bottom: 3px;
+    margin-bottom: 3px;
+    background: #eee;
+    border: 1px solid #e5e5e5;
+}
+
+.searchableselector-selected .closebutton {
+    width:25px;
+    height:15px;
+    float:right;
+    vertical-align:middle;
+    display:inline-block;
+    cursor:pointer;
+    padding:0px;
+    background-image:url([[pix:theme|sprite]]);
+    background-repeat:no-repeat;
+    border-style:none;
+    margin: 2px;
 }
 
 /**

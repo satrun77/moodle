@@ -27,6 +27,7 @@ require_once("$CFG->dirroot/enrol/meta/addinstance_form.php");
 require_once("$CFG->dirroot/enrol/meta/locallib.php");
 
 $id = required_param('id', PARAM_INT); // course id
+$search = optional_param('link_search', '', PARAM_NOTAGS);
 
 $course = $DB->get_record('course', array('id'=>$id), '*', MUST_EXIST);
 $context = context_course::instance($course->id, MUST_EXIST);
@@ -44,13 +45,15 @@ if (!$enrol->get_newinstance_link($course->id)) {
     redirect(new moodle_url('/enrol/instances.php', array('id'=>$course->id)));
 }
 
-$mform = new enrol_meta_addinstance_form(NULL, $course);
+$mform = new enrol_meta_addinstance_form(NULL, array('course' => $course, 'search' => $search));
 
 if ($mform->is_cancelled()) {
     redirect(new moodle_url('/enrol/instances.php', array('id'=>$course->id)));
 
 } else if ($data = $mform->get_data()) {
-    $eid = $enrol->add_instance($course, array('customint1'=>$data->link));
+    foreach ($data->link as $link) {
+        $enrol->add_instance($course, array('customint1' => $link));
+    }
     enrol_meta_sync($course->id);
     redirect(new moodle_url('/enrol/instances.php', array('id'=>$course->id)));
 }
