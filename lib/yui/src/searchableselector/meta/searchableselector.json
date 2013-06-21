@@ -1,0 +1,11 @@
+{
+  "moodle-core-searchableselector": {
+    "requires": [
+        "base",
+        "io",
+        "moodle-core-notification",
+        "autocomplete",
+        "autocomplete-filters"
+    ]
+  }
+}

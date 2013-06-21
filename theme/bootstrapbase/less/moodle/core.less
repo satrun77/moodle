@@ -2165,3 +2165,32 @@ a.disabled {
     font-style: italic;
     color: #808080;
 }
+
+/**
+* Autocomplete (moodle-core-searchableselector)
+*
+*/
+.searchableselector-selected {
+    list-style: none;
+    margin: 5px 0px 0px 0px;
+}
+
+.searchableselector-selected li {
+    margin-bottom: 3px;
+    background: @grayLighter;
+    border: 1px solid @dropdownDividerTop;
+}
+
+.searchableselector-selected .closebutton {
+    width:25px;
+    height:15px;
+    float:right;
+    vertical-align:middle;
+    display:inline-block;
+    cursor:pointer;
+    padding:0px;
+    background-image: url([[pix:theme|sprite]]);
+    background-repeat:no-repeat;
+    border-style:none;
+    margin: 2px;
+}

@@ -1,0 +1,10 @@
+{
+  "name": "moodle-core-searchableselector",
+  "builds": {
+    "moodle-core-searchableselector": {
+      "jsfiles": [
+        "searchableselector.js"
+      ]
+    }
+  }
+}
