@@ -695,3 +695,58 @@ function enrol_meta_sync($courseid = NULL, $verbose = false) {
 
     return 0;
 }
+
+/**
+ * Search for potential link courses.
+ *
+ * @param string $keyword
+ * @param object $course
+ * @param int $limit
+ * @return array
+ */
+function enrol_meta_search($keyword, $course, $limit = 20) {
+    global $DB, $SITE;
+
+    // Search fields.
+    $likeidnumber = $DB->sql_like('idnumber', ':keyword1', false);
+    $likeshortname = $DB->sql_like('shortname', ':keyword2', false);
+    $likefullname = $DB->sql_like('fullname', ':keyword3', false);
+
+    // Query params.
+    $params = array(
+        'keyword1'       => '%' . $keyword . '%',
+        'keyword2'       => '%' . $keyword . '%',
+        'keyword3'       => '%' . $keyword . '%',
+        'currentcourse1' => $course->id,
+        'currentcourse2' => $course->id,
+        'siteid'         => $SITE->id,
+        'enrol'          => 'meta'
+    );
+
+    $sql = "SELECT DISTINCT c.id, fullname, idnumber, shortname".
+           " FROM {course} c".
+           " LEFT JOIN {enrol} e ON e.customint1 = c.id AND (e.enrol = :enrol)".
+           " WHERE (" . $likefullname . " OR " . $likeidnumber . " OR " . $likeshortname . ")".
+           " AND c.id <> :currentcourse1".
+           " AND c.id <> :siteid".
+           " AND (e.id IS NULL OR e.courseid <> :currentcourse2)".
+           " ORDER BY fullname ASC";
+    $courses = $DB->get_records_sql($sql, $params, 0, $limit);
+
+    $return = array();
+    foreach ($courses as $course) {
+        context_helper::preload_from_record($course);
+        $coursecontext = context_course::instance($course->id);
+        if (!has_capability('moodle/course:viewhiddencourses', $coursecontext)) {
+            continue;
+        }
+        if (!has_capability('enrol/meta:selectaslinked', $coursecontext)) {
+            continue;
+        }
+        $return[$course->id] = format_string($course->fullname . ' [' . $course->shortname . ']',
+                                             true,
+                                             array('context' => $coursecontext));
+        unset($coursecontext);
+    }
+    return $return;
+}

@@ -1,0 +1,19 @@
+.meta-searchui {
+    background: #F2F2F2;
+    border: 1px solid #BBBBBB;
+    padding: 5px;
+    float: left;
+    width: 240px;
+}
+.meta-searchui label {
+    padding-right: 5px;
+}
+#fitem_id_link select {
+    float: left;
+    min-width: 252px;
+    clear: both;
+    margin: -1px 0px 0px 0px;
+}
+#fitem_id_link noscript {
+    margin: 5px;
+}
