@@ -2035,7 +2035,7 @@ class file_storage {
                 'lifetime'      => $lifetime));
         } catch (dml_exception $e) {
             // if inserting the new record failed, chances are that the race condition has just
-            // occured and the unique index did not allow to create the second record with the same
+            // occurred  and the unique index did not allow to create the second record with the same
             // repositoryid + reference combo
             $id = $this->get_referencefileid($repositoryid, $reference, MUST_EXIST);
         }

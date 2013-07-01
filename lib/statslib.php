@@ -1659,7 +1659,7 @@ function stats_temp_table_drop() {
             try {
                 $dbman->drop_table($table);
             } catch (Exception $e) {
-                mtrace("Error occured while dropping temporary tables!");
+                mtrace("Error occurred  while dropping temporary tables!");
             }
         }
     }

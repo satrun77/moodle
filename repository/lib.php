@@ -1293,7 +1293,7 @@ abstract class repository {
      * This function must be implemented for repositories supporting FILE_REFERENCE, it is called
      * for existing aliases when the lifetime of the previous syncronisation has expired.
      *
-     * Returns null if file not found or is not readable or timeout occured during request.
+     * Returns null if file not found or is not readable or timeout occurred  during request.
      * Note that this function may be run for EACH file that needs to be synchronised at the
      * moment. If anything is being downloaded or requested from external sources there
      * should be a small timeout. The synchronisation is performed to update the size of
@@ -1690,7 +1690,7 @@ abstract class repository {
      * not just URL or if request should be done differently.
      *
      * @see curl
-     * @throws file_exception when error occured
+     * @throws file_exception when error occurred 
      *
      * @param string $url the content of files.reference field, in this implementaion
      * it is asssumed that it contains the string with URL of the file

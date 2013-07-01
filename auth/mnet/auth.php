@@ -740,18 +740,18 @@ class auth_plugin_mnet extends auth_plugin_base {
 
             if ($mnet_request->send($mnet_peer) === true) {
                 if (!isset($mnet_request->response['code'])) {
-                    debugging("Server side error has occured on host $mnethostid");
+                    debugging("Server side error has occurred  on host $mnethostid");
                     continue;
                 } elseif ($mnet_request->response['code'] > 0) {
                     debugging($mnet_request->response['message']);
                 }
 
                 if (!isset($mnet_request->response['last log id'])) {
-                    debugging("Server side error has occured on host $mnethostid\nNo log ID was received.");
+                    debugging("Server side error has occurred  on host $mnethostid\nNo log ID was received.");
                     continue;
                 }
             } else {
-                debugging("Server side error has occured on host $mnethostid: " .
+                debugging("Server side error has occurred  on host $mnethostid: " .
                           join("\n", $mnet_request->error));
                 break;
             }
@@ -831,7 +831,7 @@ class auth_plugin_mnet extends auth_plugin_base {
                     debugging($mnet_request->response['message']);
                 }
             } else {
-                debugging("Server side error has occured on host $mnet_peer->ip: " .join("\n", $mnet_request->error));
+                debugging("Server side error has occurred  on host $mnet_peer->ip: " .join("\n", $mnet_request->error));
             }
         }
     }
@@ -1067,7 +1067,7 @@ class auth_plugin_mnet extends auth_plugin_base {
             $mnet_request->add_param($username);
             $mnet_request->add_param($useragent);
             if ($mnet_request->send($mnet_peer) === false) {
-                debugging("Server side error has occured on host $mnetsession->mnethostid: " .
+                debugging("Server side error has occurred  on host $mnetsession->mnethostid: " .
                           join("\n", $mnet_request->error));
             }
         }
