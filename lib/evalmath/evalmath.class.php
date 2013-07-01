@@ -338,7 +338,7 @@ class EvalMath {
             } elseif (in_array($op, $ops) and !$expecting_op) { // miscellaneous error checking
                 return $this->trigger(get_string('unexpectedoperator', 'mathslib', $op));
             } else { // I don't even want to know what you did to get here
-                return $this->trigger(get_string('anunexpectederroroccured', 'mathslib'));
+                return $this->trigger(get_string('anunexpectederroroccurred ', 'mathslib'));
             }
             if ($index == strlen($expr)) {
                 if (in_array($op, $ops)) { // did we end with an operator? bad.

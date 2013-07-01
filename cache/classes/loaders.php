@@ -1487,7 +1487,7 @@ class cache_session extends cache {
      *
      * This function gets overriden so that we can process any invalidation events if need be.
      * If the definition doesn't have any invalidation events then this occurs exactly as it would for the cache class.
-     * Otherwise we look at the last invalidation time and then check the invalidation data for events that have occured
+     * Otherwise we look at the last invalidation time and then check the invalidation data for events that have occurred 
      * between then now.
      *
      * You should not call this method from your code, instead you should use the cache::make methods.

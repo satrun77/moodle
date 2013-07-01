@@ -594,7 +594,7 @@ class gradingform_guide_renderer extends plugin_renderer_base {
 
 
     /**
-     * Displays a confirmation message after a regrade has occured
+     * Displays a confirmation message after a regrade has occurred 
      *
      * @param string $elementname
      * @param int $changelevel
