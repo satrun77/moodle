@@ -589,7 +589,7 @@ class css_optimiser {
     protected $timecomplete = 0;
 
     /**
-     * Will be set to any errors that may have occured during processing.
+     * Will be set to any errors that may have occurred  during processing.
      * This is updated only at the end of processing NOT during.
      *
      * @var array
@@ -1000,7 +1000,7 @@ class css_optimiser {
     }
 
     /**
-     * Returns true if any errors have occured during processing
+     * Returns true if any errors have occurred  during processing
      *
      * @return bool
      */
@@ -1009,7 +1009,7 @@ class css_optimiser {
     }
 
     /**
-     * Returns an array of errors that have occured
+     * Returns an array of errors that have occurred 
      *
      * @param bool $clear If set to true the errors will be cleared after being returned.
      * @return array
@@ -2169,7 +2169,7 @@ abstract class css_style {
     protected $error = false;
 
     /**
-     * The last error message that occured
+     * The last error message that occurred 
      * @var string
      */
     protected $errormessage = null;
@@ -2301,7 +2301,7 @@ abstract class css_style {
     }
 
     /**
-     * Returns true if an error has occured
+     * Returns true if an error has occurred 
      *
      * @return bool
      */
@@ -2310,7 +2310,7 @@ abstract class css_style {
     }
 
     /**
-     * Returns the last error that occured or null if no errors have happened.
+     * Returns the last error that occurred  or null if no errors have happened.
      *
      * @return string
      */

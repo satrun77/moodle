@@ -400,7 +400,7 @@ class collatorlib_testcase extends basic_testcase {
     protected $initiallang = null;
 
     /**
-     * @var string The last error that has occured
+     * @var string The last error that has occurred 
      */
     protected $error = null;
 

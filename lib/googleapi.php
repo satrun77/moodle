@@ -90,7 +90,7 @@ class google_docs {
             }
             $xml = new SimpleXMLElement($content);
         } catch (Exception $e) {
-            // An error occured while trying to parse the XML, let's just return nothing. SimpleXML does not
+            // An error occurred  while trying to parse the XML, let's just return nothing. SimpleXML does not
             // return a more specific Exception, that's why the global Exception class is caught here.
             return $files;
         }
@@ -334,7 +334,7 @@ class google_picasa {
             }
             $xml = new SimpleXMLElement($content);
         } catch (Exception $e) {
-            // An error occured while trying to parse the XML, let's just return nothing. SimpleXML does not
+            // An error occurred  while trying to parse the XML, let's just return nothing. SimpleXML does not
             // return a more specific Exception, that's why the global Exception class is caught here.
             return $files;
         }
@@ -376,7 +376,7 @@ class google_picasa {
             }
             $xml = new SimpleXMLElement($rawxml);
         } catch (Exception $e) {
-            // An error occured while trying to parse the XML, let's just return nothing. SimpleXML does not
+            // An error occurred  while trying to parse the XML, let's just return nothing. SimpleXML does not
             // return a more specific Exception, that's why the global Exception class is caught here.
             return $files;
         }

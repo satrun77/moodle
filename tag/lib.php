@@ -807,7 +807,7 @@ function tag_assign($record_type, $record_id, $tagid, $ordering, $userid = 0) {
  * @package core_tag
  * @access  private
  * @param   string   $text string that the tag names will be matched against
- * @return  mixed    an array of objects, or false if no records were found or an error occured.
+ * @return  mixed    an array of objects, or false if no records were found or an error occurred .
  */
 function tag_autocomplete($text) {
     global $DB;
@@ -1016,7 +1016,7 @@ function tag_cron() {
  * @param   bool          $ordered   If true, tags are ordered by their popularity. If false, no ordering.
  * @param   int/string    $limitfrom (optional, required if $limitnum is set) return a subset of records, starting at this point.
  * @param   int/string    $limitnum  (optional, required if $limitfrom is set) return a subset comprising this many records.
- * @return  array/boolean an array of objects, or false if no records were found or an error occured.
+ * @return  array/boolean an array of objects, or false if no records were found or an error occurred .
  */
 function tag_find_tags($text, $ordered=true, $limitfrom='', $limitnum='') {
     global $DB;
