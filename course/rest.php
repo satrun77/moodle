@@ -161,6 +161,14 @@ switch($requestmethod) {
 
                         if (!empty($module->name)) {
                             $DB->update_record($cm->modname, $module);
+
+                            add_to_log($cm->course, "course", "update mod",
+                                       "../mod/$cm->modname/view.php?id=$cm->id",
+                                       "$cm->modname $cm->instance");
+                            add_to_log($cm->course, $cm->modname, "update",
+                                       "view.php?id=$cm->id",
+                                       "$cm->instance", $cm->id);
+
                             rebuild_course_cache($cm->course);
                         } else {
                             $module->name = $cm->name;
