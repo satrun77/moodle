@@ -161,6 +161,12 @@ class assign_submission_file extends assign_submission_plugin {
         $mform->addElement('filemanager', 'files_filemanager', html_writer::tag('span', $this->get_name(),
             array('class' => 'accesshide')), null, $fileoptions);
 
+        // Files are optional if online text enabled.
+        $plugin = $this->assignment->get_submission_plugin_by_type('onlinetext');
+        if (!$plugin || !($plugin->is_enabled() && $plugin->is_visible() && $plugin->allow_submissions())) {
+            $mform->addRule('files_filemanager', get_string('required'), 'required', null, 'server');
+        }
+
         return true;
     }
 
