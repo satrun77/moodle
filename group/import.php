@@ -146,7 +146,7 @@ if ($mform_post->is_cancelled()) {
             } else if (isset($newgroup->coursename)){
                 //else use course short name to look up
                 //unset invalid coursename (if no id)
-                if (!$mycourse = $DB->get_record('course', array('shortname', $newgroup->coursename))) {
+                if (!$mycourse = $DB->get_record('course', array('shortname'=>$newgroup->coursename))) {
                     echo $OUTPUT->notification(get_string('unknowncourse', 'error', $newgroup->coursename));
                     unset($newgroup->courseid);//unset so 0 doesn't get written to database
                 }
