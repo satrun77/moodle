@@ -540,8 +540,8 @@ function search_generate_SQL($parsetree, $datafield, $metafield, $mainidfield, $
                 break;
             case TOKEN_EXACT:
                 $SQLString .= "(($datafield $REGEXP :$name1) OR ($metafield $REGEXP :$name2))";
-                $params[$name1] =  "[[:<:]]".$value."[[:>:]]";
-                $params[$name2] =  "[[:<:]]".$value."[[:>:]]";
+                $params[$name1] =  preg_quote($value);
+                $params[$name2] =  preg_quote($value);
                 break;
             case TOKEN_META:
                 if ($metafield != '') {
