@@ -651,6 +651,8 @@ class file_storage {
                 collatorlib::ksort($value, collatorlib::SORT_NATURAL);
             } else if ($key == 'files') {
                 collatorlib::ksort($value, collatorlib::SORT_NATURAL);
+            } else if ($key != 'dirfile' && $key != 'dirname') {
+                $value = $this->sort_area_tree($value);
             }
         }
         return $tree;
