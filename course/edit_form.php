@@ -72,8 +72,10 @@ class course_edit_form extends moodleform {
         // Verify permissions to change course category or keep current.
         if (empty($course->id)) {
             if (has_capability('moodle/course:create', $categorycontext)) {
-                $displaylist = coursecat::make_categories_list('moodle/course:create');
-                $mform->addElement('select', 'category', get_string('coursecategory'), $displaylist);
+                $options = '/course/search_category_ajax.php';
+                $mform->addElement('ajaxselector', 'category', get_string('coursecategory'), $options, array(
+                    'searchvalue' => $this->_customdata['search']
+                ));
                 $mform->addHelpButton('category', 'coursecategory');
                 $mform->setDefault('category', $category->id);
             } else {
@@ -83,12 +85,14 @@ class course_edit_form extends moodleform {
             }
         } else {
             if (has_capability('moodle/course:changecategory', $coursecontext)) {
-                $displaylist = coursecat::make_categories_list('moodle/course:create');
-                if (!isset($displaylist[$course->category])) {
-                    //always keep current
-                    $displaylist[$course->category] = coursecat::get($course->category, MUST_EXIST, true)->get_formatted_name();
-                }
-                $mform->addElement('select', 'category', get_string('coursecategory'), $displaylist);
+                $defaultoptions = array(
+                     $course->category => coursecat::get($course->category, MUST_EXIST, true)->get_formatted_name()
+                );
+                $options = '/course/search_category_ajax.php';
+                $mform->addElement('ajaxselector', 'category', get_string('coursecategory'), $options, array(
+                    'searchvalue' => $this->_customdata['search'],
+                    'options' => $defaultoptions
+                ));
                 $mform->addHelpButton('category', 'coursecategory');
             } else {
                 //keep current

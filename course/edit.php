@@ -94,7 +94,8 @@ if (!empty($course)) {
 }
 
 // First create the form.
-$editform = new course_edit_form(NULL, array('course'=>$course, 'category'=>$category, 'editoroptions'=>$editoroptions, 'returnto'=>$returnto));
+$categorysearch = optional_param('category_search', '', PARAM_NOTAGS);
+$editform = new course_edit_form(NULL, array('course'=>$course, 'category'=>$category, 'editoroptions'=>$editoroptions, 'returnto'=>$returnto, 'search' => $categorysearch));
 if ($editform->is_cancelled()) {
         switch ($returnto) {
             case 'category':
