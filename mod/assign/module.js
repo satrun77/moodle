@@ -67,7 +67,7 @@ M.mod_assign.init_grading_table = function(Y) {
         var batchform = Y.one('form.gradingbatchoperationsform');
         if (batchform) {
             batchform.on('submit', function(e) {
-                checkboxes = Y.all('td.c0 input');
+                checkboxes = Y.all('td.c0 input[name="selectedusers"]');
                 var selectedusers = [];
                 checkboxes.each(function(node) {
                     if (node.get('checked')) {
