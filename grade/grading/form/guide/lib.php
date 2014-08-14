@@ -770,6 +770,10 @@ class gradingform_guide_instance extends gradingform_instance {
         // Reset validation errors.
         $this->validationerrors = null;
         foreach ($criteria as $id => $criterion) {
+            // Score is required if remark field is not empty.
+            if (empty($elementvalue['criteria'][$id]['remark'])) {
+                continue;
+            }
             if (!isset($elementvalue['criteria'][$id]['score'])
                     || $criterion['maxscore'] < $elementvalue['criteria'][$id]['score']
                     || !is_numeric($elementvalue['criteria'][$id]['score'])
@@ -814,6 +818,14 @@ class gradingform_guide_instance extends gradingform_instance {
         $currentgrade = $this->get_guide_filling();
         parent::update($data);
 
+        // Exist the function if criterias are not scored.
+        $data['criteria'] = array_filter($data['criteria'], function($record) {
+            return !(empty($record['score']) && $record['score'] != '0');
+        });
+        if (empty($data['criteria'])) {
+            return;
+        }
+
         foreach ($data['criteria'] as $criterionid => $record) {
             if (!array_key_exists($criterionid, $currentgrade['criteria'])) {
                 $newrecord = array('instanceid' => $this->get_id(), 'criterionid' => $criterionid,
@@ -849,6 +861,18 @@ class gradingform_guide_instance extends gradingform_instance {
      */
     public function get_grade() {
         $grade = $this->get_guide_filling();
+
+        // No criteria filling found.
+        if (empty($grade['criteria'])) {
+            return -1;
+        }
+
+        // All of the guide criterias must be scored.
+        $countcriteria = count($this->get_controller()->get_definition()->guide_criteria);
+        $countfillings = count($grade['criteria']);
+        if ($countfillings < $countcriteria) {
+            return -1;
+        }
 
         if (!($scores = $this->get_controller()->get_min_max_score()) || $scores['maxscore'] <= $scores['minscore']) {
             return -1;
