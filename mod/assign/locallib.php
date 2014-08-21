@@ -4622,6 +4622,11 @@ class assign {
                                       $messagetype,
                                       $eventtype,
                                       $updatetime) {
+        global $USER;
+
+        // Use student id to generate the unique id for this assignment.
+        $userid = core_user::is_real_user($userfrom->id) ? $userfrom->id : $USER->id;
+
         self::send_assignment_notification($userfrom,
                                            $userto,
                                            $messagetype,
@@ -4633,7 +4638,7 @@ class assign {
                                            $this->get_module_name(),
                                            $this->get_instance()->name,
                                            $this->is_blind_marking(),
-                                           $this->get_uniqueid_for_user($userfrom->id));
+                                           $this->get_uniqueid_for_user($userid));
     }
 
     /**
